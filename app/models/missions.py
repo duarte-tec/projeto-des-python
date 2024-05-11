@@ -1,4 +1,5 @@
 from app import db
+from datetime import datetime
 
 class Missions(db.Model):
     __tablename__ = 'missions'
@@ -12,7 +13,7 @@ class Missions(db.Model):
     tripulation = db.Column(db.String)
     charge = db.Column(db.String)
     duration = db.Column(db.Interval)
-    cost = db.Column(db.Decimal)
+    cost = db.Column(db.Integer)
     status = db.Column(db.String)
     
     def __init__(self,name,date,destination,state,tripulation,charge,duration,cost,status):
@@ -29,8 +30,8 @@ class Missions(db.Model):
         
     def save_missions(self,name,date,destination,state,tripulation,charge,duration,cost,status):
         try:
-            add_banco = Missions(name, date, destination, state, tripulation, charge, duration, cost, status)
-            print(add_banco)
+            date_obj = datetime.strptime(date, "%Y-%m-%d").date()
+            add_banco = Missions(name, date_obj, destination, state, tripulation, charge, duration, cost, status)
             db.session.add(add_banco) 
             db.session.commit()
         except Exception as e:
@@ -38,7 +39,8 @@ class Missions(db.Model):
     
     def update_missions(self,id,name,date,destination,state,tripulation,charge,duration,cost,status):
         try:
-            db.session.query(Missions).filter(Missions.id==id).update({"name":name,"date": date, "destination": destination, "state": state, "tripulation": tripulation, "charge":charge, "duration": duration, "cost": cost, "status": status})
+            date_obj = datetime.strptime(date, "%Y-%m-%d").date()
+            db.session.query(Missions).filter(Missions.id==id).update({"name":name,"date": date_obj, "destination": destination, "state": state, "tripulation": tripulation, "charge":charge, "duration": duration, "cost": cost, "status": status})
             db.session.commit()
         except Exception as e:
             print(e)
