@@ -12,7 +12,7 @@ class Missions(db.Model):
     state = db.Column(db.String)
     tripulation = db.Column(db.String)
     charge = db.Column(db.String)
-    duration = db.Column(db.Interval)
+    duration = db.Column(db.String)
     cost = db.Column(db.Integer)
     status = db.Column(db.String)
     
