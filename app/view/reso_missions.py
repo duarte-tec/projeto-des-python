@@ -27,6 +27,9 @@ argumentos_update.add_argument('duration', type=str)
 argumentos_update.add_argument('cost', type=float)
 argumentos_update.add_argument('status', type=str)
 
+argumento_deletar = reqparse.RequestParser()
+argumento_deletar.add_argument('id', type=int)
+
 class Index(Resource):
     def get(self):
         return jsonify("Welcome Aplication Flask")
