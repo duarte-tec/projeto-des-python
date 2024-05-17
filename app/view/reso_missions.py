@@ -56,7 +56,7 @@ class MissionsUpdate(Resource):
 class MissionsDelete(Resource):
     def delete(self):
         try:
-            datas = argumentos_update.parse_args()
+            datas = argumentos_deletar.parse_args()
             Missions.delete_missions(self, datas['id'])
             return {"message": 'Mission deleted successfully!'}, 200  
         except Exception as e:
